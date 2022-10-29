@@ -27,21 +27,27 @@ namespace MeetupAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<UserViewModel> GetById(int id, CancellationToken ct)
         {
             return _mapper.Map<UserViewModel>(await _userServices.GetById(id, ct));
         }
 
         [HttpPut]
-        public async Task<IResult> Update(UserViewModel eventViewModel, CancellationToken ct)
+        public async Task<IActionResult> Update(UserViewModel eventViewModel, CancellationToken ct)
         {
-            return (IResult)Ok(await _userServices.Update(_mapper.Map<User>(eventViewModel), ct));
+            return Ok(await _userServices.Update(_mapper.Map<User>(eventViewModel), ct));
         }
 
         [HttpPost]
-        public async Task<IResult> Create(UserViewModel eventViewModel, CancellationToken ct)
+        [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Create(UserViewModel eventViewModel, CancellationToken ct)
         {
-            return (IResult)Ok(await _userServices.Create(_mapper.Map<User>(eventViewModel), ct));
+            return Ok(await _userServices.Create(_mapper.Map<User>(eventViewModel), ct));
         }
     }
 }

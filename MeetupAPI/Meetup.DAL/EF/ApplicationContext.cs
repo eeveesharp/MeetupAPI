@@ -17,7 +17,9 @@ namespace Meetup.DAL.EF
         public ApplicationContext(DbContextOptions<ApplicationContext> contextOptions)
             : base(contextOptions)
         {
-            Database.Migrate();
+            Database.EnsureCreated();
+
+           // Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
