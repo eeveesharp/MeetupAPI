@@ -9,18 +9,14 @@ namespace Meetup.DAL.Repositories
     {
         private readonly ApplicationContext _applicationContext;
 
-        private readonly DbSet<UserEntity> _dbSet;
-
-        public UserRepository(ApplicationContext applicationContext,
-            DbSet<UserEntity> dbSet)
+        public UserRepository(ApplicationContext applicationContext)
         {
             _applicationContext = applicationContext;
-            _dbSet = dbSet;
         }
 
         public async Task<UserEntity> Create(UserEntity item, CancellationToken ct)
         {
-            await _dbSet.AddAsync(item, ct);
+            await _applicationContext.Users.AddAsync(item, ct);
 
             await _applicationContext.SaveChangesAsync();
 
@@ -33,7 +29,7 @@ namespace Meetup.DAL.Repositories
 
             if (item != null)
             {
-                _dbSet.Remove(item);
+                _applicationContext.Users.Remove(item);
 
                 await _applicationContext.SaveChangesAsync();
             }
@@ -41,7 +37,7 @@ namespace Meetup.DAL.Repositories
 
         public async Task<IEnumerable<UserEntity>> GetAll(CancellationToken ct)
         {
-            return await _dbSet.AsNoTracking().ToListAsync(ct);
+            return await _applicationContext.Users.AsNoTracking().ToListAsync(ct);
         }
 
         public async Task<UserEntity> GetById(int id, CancellationToken ct)

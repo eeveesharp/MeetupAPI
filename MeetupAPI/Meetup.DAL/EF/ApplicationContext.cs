@@ -12,7 +12,7 @@ namespace Meetup.DAL.EF
         public ApplicationContext(DbContextOptions<ApplicationContext> contextOptions)
             : base(contextOptions)
         {
-
+            
         }
     }
 }
