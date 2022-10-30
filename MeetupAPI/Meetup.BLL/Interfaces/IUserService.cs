@@ -4,6 +4,6 @@ namespace Meetup.BLL.Interfaces
 {
     public interface IUserService : IService<User>
     {
-        Task<User> GetUserByEmail(string email, CancellationToken ct);
+        Task<User> GetUser(string email,  string password, CancellationToken ct);
     }
 }

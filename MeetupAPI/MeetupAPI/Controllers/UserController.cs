@@ -4,6 +4,7 @@ using Meetup.BLL.Models;
 using MeetupAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Utils;
 
 namespace MeetupAPI.Controllers
 {
@@ -44,18 +45,20 @@ namespace MeetupAPI.Controllers
         [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Update(UserViewModel eventViewModel, CancellationToken ct)
+        public async Task<IActionResult> Update(UserViewModel userViewModel, CancellationToken ct)
         {
-            return Ok(await _userServices.Update(_mapper.Map<User>(eventViewModel), ct));
+            return Ok(await _userServices.Update(_mapper.Map<User>(userViewModel), ct));
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Create(UserViewModel eventViewModel, CancellationToken ct)
+        public async Task<IActionResult> Create(UserViewModel userViewModel, CancellationToken ct)
         {
-            return Ok(await _userServices.Create(_mapper.Map<User>(eventViewModel), ct));
+            userViewModel.Password = PasswordHasher.HashPassword(userViewModel.Password);
+
+            return Ok(await _userServices.Create(_mapper.Map<User>(userViewModel), ct));
         }
     }
 }

@@ -4,6 +4,6 @@ namespace Meetup.DAL.Interfaces
 {
     public interface IUserRepository : IRepository<UserEntity>
     {
-        Task<UserEntity> GetUserByEmail(string email, CancellationToken ct);
+        Task<UserEntity> GetUser(string email, string password, CancellationToken ct);
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Utils;
 
 namespace JWTAuth.WebApi.Controllers
 {
@@ -30,15 +31,16 @@ namespace JWTAuth.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(UserInfoViewModel _userData, CancellationToken ct)
+        public async Task<IActionResult> Post(UserInfoViewModel userData, CancellationToken ct)
         {
-            if (_userData != null && _userData.UserEmail != null && _userData.Password != null)
+            if (userData != null && userData.UserEmail != null && userData.Password != null)
             {
-                var user = await _userService.GetUserByEmail(_userData.UserEmail, ct);
+                userData.Password = PasswordHasher.HashPassword(userData.Password);
+
+                var user = await _userService.GetUser(userData.UserEmail, userData.Password, ct);
 
                 if (user != null)
                 {
-                    //create claims details based on the user information
                     var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Meetup.BLL\Meetup.BLL.csproj" />
+    <ProjectReference Include="..\Utils\Utils.csproj" />
   </ItemGroup>
 
 </Project>

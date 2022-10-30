@@ -39,9 +39,9 @@ namespace Meetup.BLL.Services
             return _mapper.Map<UserEntity, User>(await _userRepository.GetById(id, ct));
         }
 
-        public async Task<User> GetUserByEmail(string email, CancellationToken ct)
+        public async Task<User> GetUser(string email, string password, CancellationToken ct)
         {
-            return _mapper.Map<UserEntity, User>(await _userRepository.GetUserByEmail(email, ct));
+            return _mapper.Map<UserEntity, User>(await _userRepository.GetUser(email,password, ct));
         }
 
         public async Task<User> Update(User item, CancellationToken ct)
