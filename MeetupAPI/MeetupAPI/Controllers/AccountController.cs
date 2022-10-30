@@ -13,9 +13,9 @@ using Utils;
 
 namespace JWTAuth.WebApi.Controllers
 {
-    [Route("api/token")]
+    [Route("api/Account")]
     [ApiController]
-    public class TokenController : ControllerBase
+    public class AccountController : ControllerBase
     {
         public IConfiguration _configuration;
 
@@ -23,7 +23,7 @@ namespace JWTAuth.WebApi.Controllers
 
         private readonly IMapper _mapper;
 
-        public TokenController(IConfiguration config,
+        public AccountController(IConfiguration config,
             IUserService userService,
             IMapper mapper)
         {
@@ -33,7 +33,10 @@ namespace JWTAuth.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost(nameof(Login))]
+        [ProducesResponseType(typeof(UserInfoViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login(UserInfoViewModel userData, CancellationToken ct)
         {
             if (userData != null && userData.UserEmail != null && userData.Password != null)
@@ -77,13 +80,16 @@ namespace JWTAuth.WebApi.Controllers
             }
         }
 
-        [HttpPost]
+        [AllowAnonymous]
+        [HttpPost(nameof(Register))]
         [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Register(UserViewModel userData, CancellationToken ct)
         {
-            return Ok(_userService.Create(_mapper.Map<User>(userData), ct));              
+            userData.Password = PasswordHasher.HashPassword(userData.Password);
+
+            return Ok(await _userService.Create(_mapper.Map<User>(userData), ct));
         }
     }
 }
