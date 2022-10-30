@@ -23,8 +23,4 @@
     <ProjectReference Include="..\Meetup.BLL\Meetup.BLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validator\" />
-  </ItemGroup>
-
 </Project>

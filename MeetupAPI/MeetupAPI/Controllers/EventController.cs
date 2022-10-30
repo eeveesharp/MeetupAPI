@@ -53,8 +53,6 @@ namespace MeetupAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create(EventViewModel eventViewModel, CancellationToken ct)
         {
-            var a = await _eventServices.Create(_mapper.Map<Event>(eventViewModel), ct);
-
             return Ok(await _eventServices.Create(_mapper.Map<Event>(eventViewModel), ct));
         }
     }
