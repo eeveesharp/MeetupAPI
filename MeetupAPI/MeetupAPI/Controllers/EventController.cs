@@ -19,7 +19,8 @@ namespace MeetupAPI.Controllers
             _eventServices = eventServices;
             _mapper = mapper;
         }
-        
+
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(typeof(EventViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

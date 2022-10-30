@@ -1,7 +1,6 @@
 using FluentValidation.AspNetCore;
 using Meetup.BLL.DI;
 using Meetup.BLL.Mappers;
-using MeetupAPI.Extensions;
 using MeetupAPI.Mappers;
 using MeetupAPI.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,7 +16,7 @@ builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Ass
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwagger();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -42,6 +41,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
+
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 

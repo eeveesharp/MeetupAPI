@@ -50,6 +50,11 @@ namespace Meetup.DAL.Repositories
             return await _applicationContext.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password, ct);
         }
 
+        public async Task<UserEntity> GetUserByEmail(string email, CancellationToken ct)
+        {
+            return await _applicationContext.Users.FirstOrDefaultAsync(x => x.Email == email, ct);
+        }
+
         public async Task<UserEntity> Update(UserEntity item, CancellationToken ct)
         {
             _applicationContext.Users.Update(item);

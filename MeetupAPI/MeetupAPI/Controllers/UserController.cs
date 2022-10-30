@@ -31,7 +31,7 @@ namespace MeetupAPI.Controllers
         {
             return Ok(_mapper.Map<IEnumerable<UserViewModel>>(await _userServices.GetAll(ct)));
         }
-        
+       
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
