@@ -1,4 +1,5 @@
-﻿using Meetup.DAL.Entities;
+﻿using Meetup.DAL.Configurations;
+using Meetup.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

@@ -7,8 +7,6 @@ namespace MeetupAPI.Validator
     {
         public EventValidator()
         {
-            RuleFor(e => e.Id).GreaterThan(0);
-
             RuleFor(e => e.Name).Length(3, 50);
 
             RuleFor(e => e.Description).Length(3, 50);
