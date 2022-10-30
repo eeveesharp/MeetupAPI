@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Meetup.BLL.DI;
 using MeetupAPI.Mappers;
+using MeetupAPI.Middleware;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 
