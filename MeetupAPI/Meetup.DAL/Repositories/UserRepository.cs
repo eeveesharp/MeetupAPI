@@ -25,7 +25,7 @@ namespace Meetup.DAL.Repositories
 
         public async Task DeleteById(int id, CancellationToken ct)
         {
-            var item = _applicationContext.Users.Find(id);
+            var item = _applicationContext.Users.FirstOrDefault(x => x.Id == id);
 
             if (item != null)
             {

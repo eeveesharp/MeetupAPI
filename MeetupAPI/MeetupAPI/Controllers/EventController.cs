@@ -21,27 +21,41 @@ namespace MeetupAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<EventViewModel>> GetAll(CancellationToken ct)
+        [ProducesResponseType(typeof(EventViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAll(CancellationToken ct)
         {
-            return _mapper.Map<IEnumerable<EventViewModel>>(await _eventServices.GetAll(ct));
+            return Ok(_mapper.Map<IEnumerable<EventViewModel>>(await _eventServices.GetAll(ct)));
         }
 
         [HttpGet("{id}")]
-        public async Task<EventViewModel> GetById(int id, CancellationToken ct)
+        [ProducesResponseType(typeof(EventViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetById(int id, CancellationToken ct)
         {
-            return _mapper.Map<EventViewModel>(await _eventServices.GetById(id, ct));
+            return Ok(_mapper.Map<EventViewModel>(await _eventServices.GetById(id, ct)));
         }
 
         [HttpPut]
-        public async Task<IResult> Update(EventViewModel eventViewModel, CancellationToken ct)
+        [ProducesResponseType(typeof(EventViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Update(EventViewModel eventViewModel, CancellationToken ct)
         {
-            return (IResult)Ok(await _eventServices.Update(_mapper.Map<Event>(eventViewModel), ct));
+            return Ok(await _eventServices.Update(_mapper.Map<Event>(eventViewModel), ct));
         }
 
         [HttpPost]
-        public async Task<IResult> Create(EventViewModel eventViewModel, CancellationToken ct)
+        [ProducesResponseType(typeof(EventViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Create(EventViewModel eventViewModel, CancellationToken ct)
         {
-            return (IResult)Ok(await _eventServices.Create(_mapper.Map<Event>(eventViewModel), ct));
+            var a = await _eventServices.Create(_mapper.Map<Event>(eventViewModel), ct);
+
+            return Ok(await _eventServices.Create(_mapper.Map<Event>(eventViewModel), ct));
         }
     }
 }

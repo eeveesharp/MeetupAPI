@@ -21,21 +21,27 @@ namespace MeetupAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<UserViewModel>> GetAll(CancellationToken ct)
+        [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAll(CancellationToken ct)
         {
-            return _mapper.Map<IEnumerable<UserViewModel>>(await _userServices.GetAll(ct));
+            return Ok(_mapper.Map<IEnumerable<UserViewModel>>(await _userServices.GetAll(ct)));
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<UserViewModel> GetById(int id, CancellationToken ct)
+        public async Task<IActionResult> GetById(int id, CancellationToken ct)
         {
-            return _mapper.Map<UserViewModel>(await _userServices.GetById(id, ct));
+            return Ok(_mapper.Map<UserViewModel>(await _userServices.GetById(id, ct)));
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Update(UserViewModel eventViewModel, CancellationToken ct)
         {
             return Ok(await _userServices.Update(_mapper.Map<User>(eventViewModel), ct));

@@ -1,4 +1,6 @@
-﻿namespace Meetup.BLL.Models
+﻿using System;
+
+namespace Meetup.BLL.Models
 {
     public class Event
     {
@@ -10,11 +12,11 @@
 
         public string Plan { get; set; }
 
-        public int Organizer { get; set; }
+        public int OrganizerId { get; set; }
 
-        public int Speaker { get; set; }
+        public int SpeakerId { get; set; }
 
-        public DateTime DateTimeEvent { get; set; }
+        public DateTimeOffset DateTimeEvent { get; set; }
 
         public string PlaceEvent { get; set; }
     }

@@ -19,7 +19,7 @@ namespace Meetup.DAL.EF
         {
             Database.EnsureCreated();
 
-           // Database.Migrate();
+            //Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
