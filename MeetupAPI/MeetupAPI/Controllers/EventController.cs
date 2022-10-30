@@ -10,16 +10,16 @@ namespace MeetupAPI.Controllers
     [Route("[controller]")]
     public class EventController : ControllerBase
     {
-        private readonly IEventServices _eventServices;
+        private readonly IEventService _eventServices;
 
         private readonly IMapper _mapper;
 
-        public EventController(IEventServices eventServices, IMapper mapper)
+        public EventController(IEventService eventServices, IMapper mapper)
         {
             _eventServices = eventServices;
             _mapper = mapper;
         }
-
+        
         [HttpGet]
         [ProducesResponseType(typeof(EventViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

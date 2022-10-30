@@ -2,7 +2,7 @@
 
 namespace Meetup.BLL.Interfaces
 {
-    public interface IUserServices : IServices<User>
+    public interface IEventService : IService<Event>
     {
     }
 }

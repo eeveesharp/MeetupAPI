@@ -2,6 +2,7 @@
 using Meetup.BLL.Interfaces;
 using Meetup.BLL.Models;
 using MeetupAPI.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MeetupAPI.Controllers
@@ -10,16 +11,17 @@ namespace MeetupAPI.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IUserServices _userServices;
+        private readonly IUserService _userServices;
 
         private readonly IMapper _mapper;
 
-        public UserController(IUserServices eventServices, IMapper mapper)
+        public UserController(IUserService eventServices, IMapper mapper)
         {
             _userServices = eventServices;
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -28,7 +30,7 @@ namespace MeetupAPI.Controllers
         {
             return Ok(_mapper.Map<IEnumerable<UserViewModel>>(await _userServices.GetAll(ct)));
         }
-
+        
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

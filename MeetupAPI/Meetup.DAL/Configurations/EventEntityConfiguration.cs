@@ -8,15 +8,13 @@ namespace Meetup.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<EventEntity> builder)
         {
-            builder.HasKey(e => e.Id);
+            builder.Property(x => x.Name).HasMaxLength(256);
 
-            builder.HasAlternateKey(e => e.OrganizerId);
+            builder.Property(x => x.PlaceEvent).HasMaxLength(256);
 
-            builder.HasAlternateKey(e => e.SpeakerId);
+            builder.Property(x => x.Description).HasMaxLength(256);
 
-            builder.HasOne(e => e.Organizer)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.Property(x => x.Plan).HasMaxLength(256);
         }
     }
 }

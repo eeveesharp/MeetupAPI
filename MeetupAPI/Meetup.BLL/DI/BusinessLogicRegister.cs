@@ -10,9 +10,9 @@ namespace Meetup.BLL.DI
     {
         public static void AddBusinessLogic(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<IEventServices, EventServices>();
+            services.AddScoped<IEventService, EventService>();
 
             services.AddDataAccess(configuration);
         }

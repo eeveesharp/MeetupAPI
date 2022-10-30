@@ -6,13 +6,13 @@ using Meetup.DAL.Interfaces;
 
 namespace Meetup.BLL.Services
 {
-    public class EventServices : IEventServices
+    public class EventService : IEventService
     {
         private readonly IEventRepository _eventRepository;
 
         private readonly IMapper _mapper;
 
-        public EventServices(IEventRepository eventRepository,
+        public EventService(IEventRepository eventRepository,
             IMapper mapper)
         {
             _eventRepository = eventRepository;

@@ -4,13 +4,15 @@ using MeetupAPI.ViewModels;
 
 namespace MeetupAPI.Mappers
 {
-    public class MappingProfile : Profile
+    public class MappingProfileAPI : Profile
     {
-        public MappingProfile()
+        public MappingProfileAPI()
         {
             CreateMap<UserViewModel, User>().ReverseMap();
 
             CreateMap<EventViewModel, Event>().ReverseMap();
+
+            CreateMap<UserInfoViewModel, User>().ReverseMap();
         }
     }
 }

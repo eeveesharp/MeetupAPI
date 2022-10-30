@@ -13,12 +13,8 @@ namespace Meetup.DAL.Entities
 
         public string Plan { get; set; }
 
-        public int OrganizerId { get; set; }
-        [ForeignKey("OrganizerId")]
         public OrganizerEntity Organizer { get; set; }
 
-        public int SpeakerId { get; set; }
-        [ForeignKey("SpeakerId")]
         public SpeakerEntity Speaker { get; set; }
 
         public DateTimeOffset DateTimeEvent { get; set; }

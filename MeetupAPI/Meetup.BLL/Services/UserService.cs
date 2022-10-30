@@ -6,13 +6,13 @@ using Meetup.DAL.Interfaces;
 
 namespace Meetup.BLL.Services
 {
-    public class UserServices : IUserServices
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
 
         private readonly IMapper _mapper;
 
-        public UserServices(IUserRepository eventRepository,
+        public UserService(IUserRepository eventRepository,
             IMapper mapper)
         {
             _userRepository = eventRepository;
@@ -37,6 +37,11 @@ namespace Meetup.BLL.Services
         public async Task<User> GetById(int id, CancellationToken ct)
         {
             return _mapper.Map<UserEntity, User>(await _userRepository.GetById(id, ct));
+        }
+
+        public async Task<User> GetUserByEmail(string email, CancellationToken ct)
+        {
+            return _mapper.Map<UserEntity, User>(await _userRepository.GetUserByEmail(email, ct));
         }
 
         public async Task<User> Update(User item, CancellationToken ct)

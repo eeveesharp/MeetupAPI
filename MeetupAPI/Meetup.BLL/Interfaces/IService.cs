@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Meetup.BLL.Interfaces
 {
-    public interface IServices<TModel>
+    public interface IService<TModel>
     {
         Task<IEnumerable<TModel>> GetAll(CancellationToken ct);
 

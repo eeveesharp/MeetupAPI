@@ -42,7 +42,12 @@ namespace Meetup.DAL.Repositories
 
         public async Task<UserEntity> GetById(int id, CancellationToken ct)
         {
-            return await _applicationContext.Users.FirstAsync(x => x.Id == id, ct);
+            return await _applicationContext.Users.FirstOrDefaultAsync(x => x.Id == id, ct);
+        }
+
+        public async Task<UserEntity> GetUserByEmail(string email, CancellationToken ct)
+        {
+            return await _applicationContext.Users.FirstOrDefaultAsync(x => x.Email == email, ct);
         }
 
         public async Task<UserEntity> Update(UserEntity item, CancellationToken ct)

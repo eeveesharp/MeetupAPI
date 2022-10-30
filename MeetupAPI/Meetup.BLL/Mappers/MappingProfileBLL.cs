@@ -4,9 +4,9 @@ using Meetup.DAL.Entities;
 
 namespace Meetup.BLL.Mappers
 {
-    public class MappingProfile : Profile
+    public class MappingProfileBLL : Profile
     {
-        public MappingProfile()
+        public MappingProfileBLL()
         {
             CreateMap<User, UserEntity>().ReverseMap();
 
