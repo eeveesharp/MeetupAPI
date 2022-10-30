@@ -50,14 +50,18 @@ namespace JWTAuth.WebApi.Controllers
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
                     var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                    var token = new JwtSecurityToken(
+                    var jwtToken = new JwtSecurityToken(
                         _configuration["Jwt:Issuer"],
                         _configuration["Jwt:Audience"],
                         claims,
                         expires: DateTime.UtcNow.AddMinutes(10),
                         signingCredentials: signIn);
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
+
+                    Response.Cookies.Append("jwt", $"Bearer {token}");
+
+                    return Ok(token);
                 }
                 else
                 {
