@@ -1,5 +1,7 @@
+using FluentValidation.AspNetCore;
 using Meetup.BLL.DI;
 using MeetupAPI.Mappers;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddBusinessLogic(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(MappingProfile), typeof(Meetup.BLL.Mappers.MappingProfile));
+builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.Load("MeetupAPI")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
