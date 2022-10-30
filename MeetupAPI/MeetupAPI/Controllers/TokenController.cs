@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Meetup.BLL.Interfaces;
+using Meetup.BLL.Models;
 using MeetupAPI.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -22,7 +24,7 @@ namespace JWTAuth.WebApi.Controllers
         private readonly IMapper _mapper;
 
         public TokenController(IConfiguration config,
-            IUserService userService, 
+            IUserService userService,
             IMapper mapper)
         {
             _configuration = config;
@@ -30,8 +32,9 @@ namespace JWTAuth.WebApi.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Post(UserInfoViewModel userData, CancellationToken ct)
+        public async Task<IActionResult> Login(UserInfoViewModel userData, CancellationToken ct)
         {
             if (userData != null && userData.UserEmail != null && userData.Password != null)
             {
@@ -72,6 +75,15 @@ namespace JWTAuth.WebApi.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Register(UserViewModel userData, CancellationToken ct)
+        {
+            return Ok(_userService.Create(_mapper.Map<User>(userData), ct));              
         }
     }
 }
