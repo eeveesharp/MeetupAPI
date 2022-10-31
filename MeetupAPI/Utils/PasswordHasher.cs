@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using System.Security.Cryptography;
 
 namespace Utils
 {
@@ -7,14 +6,18 @@ namespace Utils
     {
         public static string HashPassword(string password)
         {
+            const int iterationCount = 100000;
+
+            const int numBytesRequested = 32;
+
             byte[] salt = { 1 };
 
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password!,
                 salt,
                 prf: KeyDerivationPrf.HMACSHA256,
-                iterationCount: 100000,
-                numBytesRequested: 256 / 8));
+                iterationCount: iterationCount,
+                numBytesRequested: numBytesRequested));
 
             return hashed;
         }

@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Meetup.BLL.Interfaces;
 using Meetup.BLL.Models;
+using MeetupAPI.Atributes;
 using MeetupAPI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MeetupAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class EventController : ControllerBase
@@ -14,13 +16,14 @@ namespace MeetupAPI.Controllers
 
         private readonly IMapper _mapper;
 
-        public EventController(IEventService eventServices, IMapper mapper)
+        public EventController(
+            IEventService eventServices,
+            IMapper mapper)
         {
             _eventServices = eventServices;
             _mapper = mapper;
         }
 
-        [Authorize]
         [HttpGet]
         [ProducesResponseType(typeof(EventViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -55,6 +58,23 @@ namespace MeetupAPI.Controllers
         public async Task<IActionResult> Create(EventViewModel eventViewModel, CancellationToken ct)
         {
             return Ok(await _eventServices.Create(_mapper.Map<Event>(eventViewModel), ct));
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(EventViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteById(int id, CancellationToken ct)
+        {
+            var isDeleted = await _eventServices.DeleteById(id, ct);
+
+            if (isDeleted)
+            {
+                return Ok();
+            }
+
+            return NotFound();
         }
     }
 }

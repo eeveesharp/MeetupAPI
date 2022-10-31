@@ -2,7 +2,7 @@ using FluentValidation.AspNetCore;
 using Meetup.BLL.DI;
 using Meetup.BLL.Mappers;
 using MeetupAPI.Mappers;
-using MeetupAPI.Middleware;
+using MeetupAPI.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;

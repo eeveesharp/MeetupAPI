@@ -12,7 +12,8 @@ namespace Meetup.BLL.Services
 
         private readonly IMapper _mapper;
 
-        public EventService(IEventRepository eventRepository,
+        public EventService(
+            IEventRepository eventRepository,
             IMapper mapper)
         {
             _eventRepository = eventRepository;
@@ -24,9 +25,9 @@ namespace Meetup.BLL.Services
             return _mapper.Map<EventEntity, Event>(await _eventRepository.Create(_mapper.Map<Event, EventEntity>(item), ct));
         }
 
-        public async Task DeleteById(int id, CancellationToken ct)
+        public async Task<bool> DeleteById(int id, CancellationToken ct)
         {
-            await _eventRepository.DeleteById(id, ct);
+            return await _eventRepository.DeleteById(id, ct);
         }
 
         public async Task<IEnumerable<Event>> GetAll(CancellationToken ct)

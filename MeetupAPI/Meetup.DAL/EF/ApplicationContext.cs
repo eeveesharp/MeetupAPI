@@ -1,5 +1,4 @@
-﻿using Meetup.DAL.Configurations;
-using Meetup.DAL.Entities;
+﻿using Meetup.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -18,15 +17,13 @@ namespace Meetup.DAL.EF
         public ApplicationContext(DbContextOptions<ApplicationContext> contextOptions)
             : base(contextOptions)
         {
-            //Database.Migrate();
-
-            Database.EnsureCreated();
+            Database.Migrate();
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            base.OnModelCreating(builder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

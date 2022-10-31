@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Meetup.BLL.Models
+﻿namespace Meetup.BLL.Models
 {
     public class Event
     {

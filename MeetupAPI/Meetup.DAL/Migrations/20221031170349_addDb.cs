@@ -47,12 +47,14 @@ namespace Meetup.DAL.Migrations
                         name: "FK_Events_Users_OrganizerId",
                         column: x => x.OrganizerId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Events_Users_SpeakerId",
                         column: x => x.SpeakerId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

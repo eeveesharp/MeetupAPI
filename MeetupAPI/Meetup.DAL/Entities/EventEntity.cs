@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Meetup.DAL.Entities
+﻿namespace Meetup.DAL.Entities
 {
     public class EventEntity
     {

@@ -23,7 +23,7 @@ namespace Meetup.DAL.Repositories
             return item;
         }
 
-        public async Task DeleteById(int id, CancellationToken ct)
+        public async Task<bool> DeleteById(int id, CancellationToken ct)
         {
             var item = _applicationContext.Users.FirstOrDefault(x => x.Id == id);
 
@@ -32,7 +32,11 @@ namespace Meetup.DAL.Repositories
                 _applicationContext.Users.Remove(item);
 
                 await _applicationContext.SaveChangesAsync();
+
+                return true;
             }
+
+            return false;
         }
 
         public async Task<IEnumerable<UserEntity>> GetAll(CancellationToken ct)

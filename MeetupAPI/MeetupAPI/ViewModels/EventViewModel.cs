@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MeetupAPI.ViewModels
+﻿namespace MeetupAPI.ViewModels
 {
     public class EventViewModel
     {

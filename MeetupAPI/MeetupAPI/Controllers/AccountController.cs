@@ -4,14 +4,9 @@ using Meetup.BLL.Models;
 using MeetupAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using Utils;
 
-namespace JWTAuth.WebApi.Controllers
+namespace MeetupAPI.Controllers
 {
     [Route("api/Account")]
     [ApiController]
@@ -21,14 +16,19 @@ namespace JWTAuth.WebApi.Controllers
 
         private readonly IUserService _userService;
 
+        private readonly ITokenService _tokenService;
+
         private readonly IMapper _mapper;
 
-        public AccountController(IConfiguration config,
+        public AccountController(
+            IConfiguration config,
             IUserService userService,
+            ITokenService tokenService,
             IMapper mapper)
         {
             _configuration = config;
             _userService = userService;
+            _tokenService = tokenService;
             _mapper = mapper;
         }
 
@@ -47,23 +47,7 @@ namespace JWTAuth.WebApi.Controllers
 
                 if (user != null)
                 {
-                    var claims = new[] {
-                        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim(JwtRegisteredClaimNames.Email, user.Email)
-                    };
-
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-                    var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                    var jwtToken = new JwtSecurityToken(
-                        _configuration["Jwt:Issuer"],
-                        _configuration["Jwt:Audience"],
-                        claims,
-                        expires: DateTime.UtcNow.AddMinutes(10),
-                        signingCredentials: signIn);
-
-                    var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
+                    var token = await _tokenService.GetToken(user);
 
                     Response.Cookies.Append("jwt", $"Bearer {token}");
 

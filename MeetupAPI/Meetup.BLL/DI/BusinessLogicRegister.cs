@@ -14,6 +14,8 @@ namespace Meetup.BLL.DI
 
             services.AddScoped<IEventService, EventService>();
 
+            services.AddScoped<ITokenService, TokenService>();
+
             services.AddDataAccess(configuration);
         }
     }

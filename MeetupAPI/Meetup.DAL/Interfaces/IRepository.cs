@@ -10,6 +10,6 @@
 
         Task<TEntity> Create(TEntity item, CancellationToken ct);
 
-        Task DeleteById(int id, CancellationToken ct);
+        Task<bool> DeleteById(int id, CancellationToken ct);
     }
 }

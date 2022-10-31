@@ -112,26 +112,18 @@ namespace Meetup.DAL.Migrations
             modelBuilder.Entity("Meetup.DAL.Entities.EventEntity", b =>
                 {
                     b.HasOne("Meetup.DAL.Entities.OrganizerEntity", "Organizer")
-                        .WithMany("Events")
-                        .HasForeignKey("OrganizerId");
+                        .WithMany()
+                        .HasForeignKey("OrganizerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Meetup.DAL.Entities.SpeakerEntity", "Speaker")
-                        .WithMany("Events")
-                        .HasForeignKey("SpeakerId");
+                        .WithMany()
+                        .HasForeignKey("SpeakerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Organizer");
 
                     b.Navigation("Speaker");
-                });
-
-            modelBuilder.Entity("Meetup.DAL.Entities.OrganizerEntity", b =>
-                {
-                    b.Navigation("Events");
-                });
-
-            modelBuilder.Entity("Meetup.DAL.Entities.SpeakerEntity", b =>
-                {
-                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

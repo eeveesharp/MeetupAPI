@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
 
-namespace MeetupAPI.Middleware
+namespace MeetupAPI.Middlewares
 {
     public class ExceptionHandlerMiddleware
     {
@@ -9,7 +9,8 @@ namespace MeetupAPI.Middleware
 
         private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
-        public ExceptionHandlerMiddleware(RequestDelegate requestDelegate, 
+        public ExceptionHandlerMiddleware(
+            RequestDelegate requestDelegate,
             ILogger<ExceptionHandlerMiddleware> logger)
         {
             _requestDelegate = requestDelegate;

@@ -12,7 +12,8 @@ namespace Meetup.BLL.Services
 
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository eventRepository,
+        public UserService(
+            IUserRepository eventRepository,
             IMapper mapper)
         {
             _userRepository = eventRepository;
@@ -24,9 +25,9 @@ namespace Meetup.BLL.Services
             return _mapper.Map<UserEntity, User>(await _userRepository.Create(_mapper.Map<User, UserEntity>(item), ct));
         }
 
-        public async Task DeleteById(int id, CancellationToken ct)
+        public async Task<bool> DeleteById(int id, CancellationToken ct)
         {
-            await _userRepository.DeleteById(id, ct);
+            return await _userRepository.DeleteById(id, ct);
         }
 
         public async Task<IEnumerable<User>> GetAll(CancellationToken ct)
@@ -41,7 +42,7 @@ namespace Meetup.BLL.Services
 
         public async Task<User> GetUser(string email, string password, CancellationToken ct)
         {
-            return _mapper.Map<UserEntity, User>(await _userRepository.GetUser(email,password, ct));
+            return _mapper.Map<UserEntity, User>(await _userRepository.GetUser(email, password, ct));
         }
 
         public async Task<User> GetUserByEmail(string email, CancellationToken ct)
