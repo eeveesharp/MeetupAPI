@@ -18,6 +18,7 @@ To start the program, open Meetup.sln and click F5
 2. Log in using the method Login.
 
 ## Project architecture (n-layer)
+![image5-2](https://user-images.githubusercontent.com/78380344/199097062-b55376b9-23df-4ad8-835c-06113df79297.png)
 
 These layers are frequently abbreviated as UI, BLL (Business Logic Layer), and DAL (Data Access Layer). Using this architecture, users make requests through the UI layer, which interacts only with the BLL. The BLL, in turn, can call the DAL for data access requests. The UI layer shouldn't make any requests to the DAL directly, nor should it interact with persistence directly through other means. Likewise, the BLL should only interact with persistence by going through the DAL. In this way, each layer has its own well-known responsibility.
 
