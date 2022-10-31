@@ -47,7 +47,7 @@ namespace MeetupAPI.Controllers
 
                 if (user != null)
                 {
-                    var token = await _tokenService.GetToken(user);
+                    var token = _tokenService.GetToken(user);
 
                     Response.Cookies.Append("jwt", $"Bearer {token}");
 

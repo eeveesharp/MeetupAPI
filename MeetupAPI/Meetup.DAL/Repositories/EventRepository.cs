@@ -41,6 +41,8 @@ namespace Meetup.DAL.Repositories
 
         public async Task<IEnumerable<EventEntity>> GetAll(CancellationToken ct)
         {
+            var a = await _applicationContext.Events.AsNoTracking().ToListAsync(ct);
+
             return await _applicationContext.Events.AsNoTracking().ToListAsync(ct);
         }
 

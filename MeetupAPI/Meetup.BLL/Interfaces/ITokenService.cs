@@ -4,6 +4,6 @@ namespace Meetup.BLL.Interfaces
 {
     public interface ITokenService
     {
-        Task<string> GetToken(User user);
+        string GetToken(User user);
     }
 }

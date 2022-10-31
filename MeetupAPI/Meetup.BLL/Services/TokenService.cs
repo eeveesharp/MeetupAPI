@@ -17,7 +17,7 @@ namespace Meetup.BLL.Services
             _configuration = configuration;
         }
 
-        public async Task<string> GetToken(User user)
+        public string GetToken(User user)
         {
             var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
@@ -35,7 +35,7 @@ namespace Meetup.BLL.Services
                 expires: DateTime.UtcNow.AddMinutes(10),
                 signingCredentials: signIn);
 
-            return await Task.Run(() => new JwtSecurityTokenHandler().WriteToken(jwtToken));
+            return new JwtSecurityTokenHandler().WriteToken(jwtToken);
         }
     }
 }
