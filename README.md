@@ -35,3 +35,7 @@ AutoMapper is used to map one object to another . Mapping works by converting an
 Fluentvalidator using to validate models
  - **Swagger**
 Swagger allows computers and users to better understand the capabilities of the REST API without direct access to the source code.
+ - **Moq**
+ The Moq is designed to simulate objects.
+ - **Xunit**
+ This is a testing environment that provides a set of attributes and methods that we can use to write a test
