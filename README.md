@@ -1,7 +1,7 @@
 # MeetupAPI
 ## Launching the application
 
-You need to instal the following programs:
+You need to install the following programs:
 
 - MSSQL
 - Visual Studio
@@ -14,7 +14,7 @@ Everything is ready to start
 To start the program, open Meetup.sln and click F5
 ## Authorization
 
-1. You need to register using the method Register.Fill in all the required fields
+1. You need to register using the method Register. Fill in all the required fields
 2. Log in using the method Login.
 
 ## Project architecture (n-layer)
@@ -24,7 +24,7 @@ These layers are frequently abbreviated as UI, BLL (Business Logic Layer), and D
 
 One disadvantage of this traditional layering approach is that compile-time dependencies run from the top to the bottom. That is, the UI layer depends on the BLL, which depends on the DAL. This means that the BLL, which usually holds the most important logic in the application, is dependent on data access implementation details (and often on the existence of a database). Testing business logic in such an architecture is often difficult, requiring a test database. The dependency inversion principle can be used to address this issue, as you'll see in the next section.
 
-## Using technologies:
+## Using technologies
  - **Entity framework** 
  Entity Framework is an object-relational mapper. This means that it can return the data in your database as an object (e.g.: a Person object with the properties Id, Name, etc.) or a collection of objects
  - **Jwt token**
