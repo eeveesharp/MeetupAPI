@@ -10,7 +10,11 @@
 
         public string Plan { get; set; }
 
+        public int OrganizerId { get; set; }
+
         public OrganizerEntity Organizer { get; set; }
+
+        public int SpeakerId { get; set; }
 
         public SpeakerEntity Speaker { get; set; }
 
