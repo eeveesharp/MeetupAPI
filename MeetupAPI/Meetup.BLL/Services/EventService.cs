@@ -22,7 +22,7 @@ namespace Meetup.BLL.Services
 
         public async Task<Event> Create(Event item, CancellationToken ct)
         {
-            return _mapper.Map<EventEntity, Event>(await _eventRepository.Create(_mapper.Map<Event, EventEntity>(item), ct));
+            return _mapper.Map<Event>(await _eventRepository.Create(_mapper.Map<EventEntity>(item), ct));
         }
 
         public async Task<bool> DeleteById(int id, CancellationToken ct)
@@ -37,12 +37,12 @@ namespace Meetup.BLL.Services
 
         public async Task<Event> GetById(int id, CancellationToken ct)
         {
-            return _mapper.Map<EventEntity, Event>(await _eventRepository.GetById(id, ct));
+            return _mapper.Map<Event>(await _eventRepository.GetById(id, ct));
         }
 
         public async Task<Event> Update(Event item, CancellationToken ct)
         {
-            return _mapper.Map<EventEntity, Event>(await _eventRepository.Update(_mapper.Map<Event, EventEntity>(item), ct));
+            return _mapper.Map<Event>(await _eventRepository.Update(_mapper.Map<EventEntity>(item), ct));
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Meetup.BLL.Services
 
         public async Task<User> Create(User item, CancellationToken ct)
         {
-            return _mapper.Map<UserEntity, User>(await _userRepository.Create(_mapper.Map<User, UserEntity>(item), ct));
+            return _mapper.Map<User>(await _userRepository.Create(_mapper.Map<UserEntity>(item), ct));
         }
 
         public async Task<bool> DeleteById(int id, CancellationToken ct)
@@ -37,22 +37,22 @@ namespace Meetup.BLL.Services
 
         public async Task<User> GetById(int id, CancellationToken ct)
         {
-            return _mapper.Map<UserEntity, User>(await _userRepository.GetById(id, ct));
+            return _mapper.Map<User>(await _userRepository.GetById(id, ct));
         }
 
         public async Task<User> GetUser(string email, string password, CancellationToken ct)
         {
-            return _mapper.Map<UserEntity, User>(await _userRepository.GetUser(email, password, ct));
+            return _mapper.Map<User>(await _userRepository.GetUser(email, password, ct));
         }
 
         public async Task<User> GetUserByEmail(string email, CancellationToken ct)
         {
-            return _mapper.Map<UserEntity, User>(await _userRepository.GetUserByEmail(email, ct));
+            return _mapper.Map<User>(await _userRepository.GetUserByEmail(email, ct));
         }
 
         public async Task<User> Update(User item, CancellationToken ct)
         {
-            return _mapper.Map<UserEntity, User>(await _userRepository.Update(_mapper.Map<User, UserEntity>(item), ct));
+            return _mapper.Map<User>(await _userRepository.Update(_mapper.Map<UserEntity>(item), ct));
         }
     }
 }
